@@ -1,28 +1,26 @@
 package main
 
 import (
-	"errors"
 	"flag"
 	"fmt"
-	"os"
 	"strings"
 )
 
 func main() {
-	src, err := readInput()
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+	src := readInput()
+	var res int
+	if src == "" {
+		res = 0
+	} else {
+		words := strings.Split(src, " ")
+		res = len(words)
 	}
-	words := strings.Split(src, " ")
-	fmt.Println("words:", len(words))
+
+	fmt.Println(res)
 }
 
-func readInput() (src string, err error) {
+func readInput() (src string) {
 	flag.Parse()
 	src = strings.Join(flag.Args(), "")
-	if src == "" {
-		return src, errors.New("missing string to match")
-	}
-	return src, nil
+	return src
 }
